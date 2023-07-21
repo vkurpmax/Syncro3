@@ -213,16 +213,16 @@ y_manip_pred = model2.predict(np.array([[y_img]]))
 x_manipulator = round(x_manip_pred[0, 0])
 y_manipulator = round(y_manip_pred[0, 0])
 
-print("x_manipulator: %s" % (x_manipulator))
-print("y_manipulator: %s" % (y_manipulator))
+print("x_manipulator: %d" % (x_manipulator))
+print("y_manipulator: %d" % (y_manipulator))
 
 lcd.clear()
 lcd.cursor_pos = (0, 0)
 lcd.write_string('     TERDETEKSI    ')
 lcd.cursor_pos = (2, 0)
-lcd.write_string('x = %d' % (str(x_manipulator)))
+lcd.write_string('x = %s' % (str(x_manipulator)))
 lcd.cursor_pos = (3, 0)
-lcd.write_string('y = %d' % (str(y_manipulator)))
+lcd.write_string('y = %s' % (str(y_manipulator)))
 
 ###############################
 ##### MANIPULATOR PROCESS #####
@@ -234,93 +234,108 @@ Z = 15
 
 Formulasi()
 
-# Position 2:
-print("")
-my_dxl_1.set_moving_speed(30)
-my_dxl_2.set_moving_speed(30)
-my_dxl_3.set_moving_speed(30)
-my_dxl_1.set_goal_position(500)
-my_dxl_2.set_goal_position(400)
-my_dxl_3.set_goal_position(325)
-time.sleep(2)
+# IF T1, T2, T3 not
+def check_ranges(T1, T2, T3):
+    # Check if a is inside range 1-250
+    if 500 <= T1 <= 810:
+        # Check if b is inside range 2-30
+        if 165 <= T2 <= 450:
+            # Check if c is inside range 3-20
+            if 215 <= T3 <= 790:
+                confirm()
+                return True
+    return False
 
-# Position 3:
-print("")
-my_dxl_1.set_moving_speed(30)
-my_dxl_2.set_moving_speed(15)
-my_dxl_3.set_moving_speed(30)
+def confirm():
+    # Position 2:
+    print("")
+    my_dxl_1.set_moving_speed(30)
+    my_dxl_2.set_moving_speed(30)
+    my_dxl_3.set_moving_speed(30)
+    my_dxl_1.set_goal_position(500)
+    my_dxl_2.set_goal_position(400)
+    my_dxl_3.set_goal_position(325)
+    time.sleep(2)
 
-my_dxl_1.set_goal_position(int(T1))
-time.sleep(2)
-my_dxl_2.set_goal_position(int(T2))
-time.sleep(4)
-my_dxl_3.set_goal_position(int(T3))
-time.sleep(2)
+    # Position 3:
+    print("")
+    my_dxl_1.set_moving_speed(30)
+    my_dxl_2.set_moving_speed(15)
+    my_dxl_3.set_moving_speed(30)
 
-SetAngle_4(90)
-SetAngle_5(140)
+    my_dxl_1.set_goal_position(int(T1))
+    time.sleep(2)
+    my_dxl_2.set_goal_position(int(T2))
+    time.sleep(4)
+    my_dxl_3.set_goal_position(int(T3))
+    time.sleep(2)
 
-print("\nDynamixel 1 Present Position: %d" % (my_dxl_1.get_present_position()))
-print("Dynamixel 2 Present Position: %d" % (my_dxl_2.get_present_position()))
-print("Dynamixel 3 Present Position: %d" % (my_dxl_3.get_present_position()))
+    SetAngle_4(90)
+    SetAngle_5(140)
 
-# Position 4:
-print("")
-my_dxl_2.set_moving_speed(30)
-my_dxl_2.set_goal_position(400)
-time.sleep(2)
-#SetAngle_5(140)
-#SetAngle_5(140)
-#SetAngle_5(140)
+    print("\nDynamixel 1 Present Position: %d" % (my_dxl_1.get_present_position()))
+    print("Dynamixel 2 Present Position: %d" % (my_dxl_2.get_present_position()))
+    print("Dynamixel 3 Present Position: %d" % (my_dxl_3.get_present_position()))
 
-# Position 5:
-print("")
-my_dxl_1.set_moving_speed(30)
-my_dxl_2.set_moving_speed(15)
-my_dxl_3.set_moving_speed(30)
-my_dxl_1.set_goal_position(790)
-my_dxl_2.set_goal_position(270)
-my_dxl_3.set_goal_position(325)
-#SetAngle_5(140)
-time.sleep(3)
+    # Position 4:
+    print("")
+    my_dxl_2.set_moving_speed(30)
+    my_dxl_2.set_goal_position(400)
+    time.sleep(2)
+    #SetAngle_5(140)
+    #SetAngle_5(140)
+    #SetAngle_5(140)
 
-SetAngle_4(90)
-SetAngle_5(180)
+    # Position 5:
+    print("")
+    my_dxl_1.set_moving_speed(30)
+    my_dxl_2.set_moving_speed(15)
+    my_dxl_3.set_moving_speed(30)
+    my_dxl_1.set_goal_position(790)
+    my_dxl_2.set_goal_position(270)
+    my_dxl_3.set_goal_position(325)
+    #SetAngle_5(140)
+    time.sleep(3)
 
-# Position 6:
-print("")
-my_dxl_2.set_moving_speed(30)
-my_dxl_2.set_goal_position(400)
-time.sleep(2)
+    SetAngle_4(90)
+    SetAngle_5(180)
 
-# Position 7:
-print("")
-my_dxl_1.set_moving_speed(30)
-my_dxl_2.set_moving_speed(10)
-my_dxl_3.set_moving_speed(30)
-my_dxl_1.set_goal_position(500)
-my_dxl_2.set_goal_position(280)
-my_dxl_3.set_goal_position(325)
-time.sleep(6)    
+    # Position 6:
+    print("")
+    my_dxl_2.set_moving_speed(30)
+    my_dxl_2.set_goal_position(400)
+    time.sleep(2)
 
-print("\nT1 : %d" % (T1))
-print("T2 : %d" % (T2))
-print("T3 : %d" % (T3))
+    # Position 7:
+    print("")
+    my_dxl_1.set_moving_speed(30)
+    my_dxl_2.set_moving_speed(10)
+    my_dxl_3.set_moving_speed(30)
+    my_dxl_1.set_goal_position(500)
+    my_dxl_2.set_goal_position(280)
+    my_dxl_3.set_goal_position(325)
+    time.sleep(6)    
+
+    print("\nT1 : %d" % (T1))
+    print("T2 : %d" % (T2))
+    print("T3 : %d" % (T3))
 
 
-print("\nDynamixel 1 Temperature: %d °C" % (my_dxl_1.get_temperature()))
-print("Dynamixel 2 Temperature: %d °C" % (my_dxl_2.get_temperature()))
-print("Dynamixel 3 Temperature: %d °C" % (my_dxl_3.get_temperature()))
-print("")
+    print("\nDynamixel 1 Temperature: %d °C" % (my_dxl_1.get_temperature()))
+    print("Dynamixel 2 Temperature: %d °C" % (my_dxl_2.get_temperature()))
+    print("Dynamixel 3 Temperature: %d °C" % (my_dxl_3.get_temperature()))
+    print("")
 
-print("\nClosing Manipulator Program")
-print("")
-print('Selesai\n')
+    print("\nClosing Manipulator Program")
+    print("")
+    print('Selesai\n')
 
-lcd.clear()
-lcd.cursor_pos = (1, 0)
-lcd.write_string('       SELESAI      ')
+    lcd.clear()
+    lcd.cursor_pos = (1, 0)
+    lcd.write_string('       SELESAI      ')
     
+check_ranges()
+
 # Disconnect: Disconnect Servo and Clean GPIO
 my_dxl_1.set_torque_enable(0)
 my_dxl_2.set_torque_enable(0)
