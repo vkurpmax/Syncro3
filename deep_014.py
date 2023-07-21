@@ -235,7 +235,8 @@ Z = 15
 Formulasi()
 
 # IF T1, T2, T3 not
-def check_ranges(T1, T2, T3):
+def check_ranges():
+    global T1, T2, T3
     # Check if a is inside range 1-250
     if 500 <= T1 <= 810:
         # Check if b is inside range 2-30
